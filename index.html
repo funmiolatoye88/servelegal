@@ -596,6 +596,198 @@ body {
 .tag-next  .roadmap-tag-dot { background: var(--amber); }
 .tag-later .roadmap-tag-dot { background: rgba(255,255,255,0.3); }
 
+
+/* ─── WELCOME SCREEN ─────────────────────────────── */
+.welcome-hero {
+  background: linear-gradient(145deg, #0f1f35 0%, #1E3A5F 50%, #16213e 100%);
+  border-radius: var(--radius-xl);
+  padding: 44px 52px 40px;
+  margin-bottom: 20px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.welcome-hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -40px;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,31,62,0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.welcome-greeting {
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12px; position: relative;
+}
+
+.welcome-title {
+  font-size: 36px; font-weight: 700; color: #fff;
+  letter-spacing: -1.5px; line-height: 1.1;
+  margin-bottom: 8px; position: relative;
+}
+
+.welcome-title span {
+  background: linear-gradient(135deg, #E88FAC, #C45C80);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-sub {
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  margin-bottom: 32px; position: relative;
+}
+
+.welcome-snapshot {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden; position: relative;
+}
+
+.welcome-snap-item {
+  flex: 1; padding: 18px 24px;
+}
+
+.welcome-snap-divider {
+  width: 0.5px; align-self: stretch;
+  background: rgba(255,255,255,0.08);
+}
+
+.welcome-snap-num {
+  font-size: 32px; font-weight: 700;
+  letter-spacing: -1.5px; line-height: 1;
+  margin-bottom: 6px;
+}
+
+.snap-red   { color: #FF6B6B; }
+.snap-amber { color: #FFBE6B; }
+.snap-white { color: #fff; }
+
+.welcome-snap-label {
+  font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.5;
+}
+
+.welcome-section-label {
+  font-size: 11px; font-weight: 600; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+.welcome-steps {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 16px;
+}
+
+.welcome-step {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface-solid);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.18s;
+}
+
+.welcome-step:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(30,58,95,0.2);
+}
+
+.welcome-step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+
+.welcome-step-content { flex: 1; }
+
+.welcome-step-title {
+  font-size: 14px; font-weight: 600; color: var(--text-1);
+  letter-spacing: -0.2px; margin-bottom: 3px;
+}
+
+.welcome-step-body {
+  font-size: 12px; color: var(--text-2); line-height: 1.5;
+}
+
+.welcome-step-arrow { flex-shrink: 0; opacity: 0.4; }
+.welcome-step:hover .welcome-step-arrow { opacity: 1; }
+
+
+/* ─── AUDIT HISTORY ─────────────────────────────── */
+.history-table-wrap {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.history-table {
+  width: 100%; border-collapse: collapse;
+}
+
+.history-th {
+  font-size: 11px; font-weight: 600; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 12px 16px; text-align: left;
+  background: var(--surface-2);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.history-th.center { text-align: center; }
+
+.history-td {
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+
+.history-tr:last-child .history-td { border-bottom: none; }
+.history-tr:hover .history-td { background: rgba(0,0,0,0.015); }
+
+.history-store-name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.history-store-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+.audit-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  font-size: 11px; font-weight: 700;
+}
+
+.audit-dot.pass { background: var(--green-bg); color: var(--green); }
+.audit-dot.fail { background: var(--red-bg);   color: var(--red); }
+.audit-dot.none { background: var(--surface-2); color: var(--text-3); }
+
+.trend-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+}
+
+.trend-up     { background: var(--green-bg); color: var(--green); }
+.trend-stable { background: var(--amber-bg); color: var(--amber); }
+.trend-down   { background: var(--red-bg);   color: var(--red); }
+
+.pass-rate-bar {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.pr-track {
+  flex: 1; height: 4px;
+  background: var(--surface-2); border-radius: 2px; overflow: hidden;
+}
+
+.pr-fill { height: 100%; border-radius: 2px; }
+.pr-num { font-size: 12px; font-weight: 600; color: var(--text-1); min-width: 32px; text-align: right; }
+
 /* ─── SCROLLBAR ─────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -1099,6 +1291,10 @@ body {
         <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 3L6 10l-3-3"/><circle cx="8" cy="8" r="6"/></svg>
         Interventions
       </button>
+      <button class="nav-btn" onclick="show('history',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 9h4"/></svg>
+        Audit history
+      </button>
       <div class="nav-section-label">Understand</div>
       <button class="nav-btn" onclick="show('journey',this)">
         <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
@@ -1131,76 +1327,87 @@ body {
       <!-- ── COVER ── -->
       <div id="cover" class="panel active">
 
-        <!-- Hero -->
-        <div class="cover-hero">
-          <div class="cover-eyebrow">
-            <div class="cover-eyebrow-dot"></div>
-            Powered by ServeLegal Intelligence
-          </div>
-          <div class="cover-headline">
-            Know which stores will fail<br>
-            <span>before they fail.</span>
-          </div>
-          <div class="cover-subheadline">
-            A compliance intelligence platform that tells retail operators exactly where their risk is, why it's happening, and what to do about it: before a auditor walks through the door.
-          </div>
-          <div class="cover-stats">
-            <div class="cover-stat">
-              <div class="cover-stat-num">250K+</div>
-              <div class="cover-stat-label">Audits analysed<br>every year</div>
+        <!-- Welcome hero -->
+        <div class="welcome-hero">
+          <div class="welcome-greeting">Good morning, Sarah</div>
+          <div class="welcome-title">Your compliance briefing<br>for <span>South London</span></div>
+          <div class="welcome-sub">Week 14 · Monday 7 April 2026 · 12 stores in your area</div>
+          <div class="welcome-snapshot">
+            <div class="welcome-snap-item">
+              <div class="welcome-snap-num snap-red">4</div>
+              <div class="welcome-snap-label">Stores need<br>attention now</div>
             </div>
-            <div class="cover-stat">
-              <div class="cover-stat-num">20+</div>
-              <div class="cover-stat-label">Years of compliance<br>behaviour data</div>
+            <div class="welcome-snap-divider"></div>
+            <div class="welcome-snap-item">
+              <div class="welcome-snap-num snap-amber">2</div>
+              <div class="welcome-snap-label">Audits due<br>this week</div>
             </div>
-            <div class="cover-stat">
-              <div class="cover-stat-num">4,500</div>
-              <div class="cover-stat-label">Trained mystery<br>shoppers in the field</div>
+            <div class="welcome-snap-divider"></div>
+            <div class="welcome-snap-item">
+              <div class="welcome-snap-num snap-white">81%</div>
+              <div class="welcome-snap-label">Area pass rate<br>last 30 days</div>
+            </div>
+            <div class="welcome-snap-divider"></div>
+            <div class="welcome-snap-item">
+              <div class="welcome-snap-num snap-red">72</div>
+              <div class="welcome-snap-label">Overall risk<br>score this week</div>
             </div>
           </div>
         </div>
 
-        <!-- The problem -->
-        <div class="cover-section-title">The problem it solves</div>
-        <div class="cover-problem-box">
-          <div class="cover-problem-label">The old way</div>
-          <div class="cover-problem-text">Right now, your compliance reports tell you what already went wrong. A store failed. A member of staff didn't ask for ID. You find out after the fact: sometimes weeks later, when the fine has already landed or the reputation damage is done.</div>
-          <div class="cover-problem-sub">Most retailers already have point-of-sale prompts that remind staff to check ID when alcohol or tobacco is scanned. But prompts don't prevent failures — they create the moment of decision. On a Friday night, with a long queue, a new starter on the till and no manager on the floor, that prompt gets dismissed. This platform tells you which stores have the conditions that lead staff to override that decision, and what to do about it before the auditor walks in.</div>
-        </div>
-
-        <!-- The three pillars -->
-        <div class="cover-section-title">What it does</div>
-        <div class="cover-three-grid">
+        <!-- What this tool does -->
+        <div class="welcome-section-label">What this tool does for you</div>
+        <div class="cover-three-grid" style="margin-bottom:20px">
           <div class="cover-feature">
             <div class="cover-feature-icon icon-red"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="#FF3B30" stroke-width="1.6"/><path d="M12.5 12.5L17 17" stroke="#FF3B30" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-            <div class="cover-feature-title">Spots the risk before it happens</div>
-            <div class="cover-feature-body">The platform looks at your stores right now: staffing levels, new starter counts, upcoming busy periods, past audit history. It flags which locations are most likely to fail in the next 7–14 days. You see the problem before the auditor does.</div>
+            <div class="cover-feature-title">Shows you what needs attention this week</div>
+            <div class="cover-feature-body">Every Monday you get a ranked view of your stores by risk level. The platform looks at staffing, new starters, upcoming busy periods, and audit history to flag which locations are most likely to have a problem in the next 7 to 14 days.</div>
           </div>
           <div class="cover-feature">
             <div class="cover-feature-icon icon-amber"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3a5 5 0 015 5c0 2-1 3.5-2.5 4.5V14h-5v-1.5C6 11.5 5 10 5 8a5 5 0 015-5z" stroke="#FF9500" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 17h5M8.5 15.5h3" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div class="cover-feature-title">Tells you exactly why stores fail</div>
-            <div class="cover-feature-body">It's not random. Stores with staff under 90 days tenure fail 45% more often. No manager on the floor means risk jumps 25%. Near a school on a Friday afternoon adds another 20%. This platform surfaces those patterns so you can act on them: not just observe them.</div>
+            <div class="cover-feature-title">Explains why each store is at risk</div>
+            <div class="cover-feature-body">Not just a score — the platform tells you the specific conditions driving the risk. New staff on the till, no manager confirmed for Friday, overdue training. You know exactly what to ask about when you visit.</div>
           </div>
           <div class="cover-feature">
             <div class="cover-feature-icon icon-green"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="#34C759" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 5-5" stroke="#34C759" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="cover-feature-title">Tells you precisely what to do</div>
-            <div class="cover-feature-body">No vague advice. The platform gives you a ranked action list: confirm manager cover, buddy-pair new starters, run a 10-minute team briefing: each with an estimated risk reduction in points. You know exactly what you're getting for every action you take.</div>
+            <div class="cover-feature-title">Gives you a clear action for each store</div>
+            <div class="cover-feature-body">The interventions page tells you the single most impactful thing you can do for each high-risk store before the audit window opens. Ranked by how many risk points each action saves. No guesswork.</div>
           </div>
         </div>
 
-        <!-- The shift in one sentence -->
-        <div class="cover-quote-box">
-          <div class="cover-quote-mark">"</div>
-          <div>
-            <div class="cover-quote-text">This is the difference between knowing your store failed last Tuesday, and knowing it's going to fail this Friday: with enough time to stop it.</div>
-            <div class="cover-quote-source">ServeLegal Compliance Intelligence · Predictive Risk Briefing Platform</div>
+        <!-- Where to start -->
+        <div class="welcome-section-label">Where to start</div>
+        <div class="welcome-steps">
+          <div class="welcome-step" onclick="show('overview', document.querySelectorAll('.nav-btn')[1])">
+            <div class="welcome-step-num">1</div>
+            <div class="welcome-step-content">
+              <div class="welcome-step-title">Check this week's risk overview</div>
+              <div class="welcome-step-body">See your area-level risk score, which stores are flagged, and what's coming up in the next two weeks.</div>
+            </div>
+            <div class="welcome-step-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
-        </div>
-
-        <!-- Who it's for + CTA -->
-        <div class="cover-cta-row">
-          <button class="cover-cta-primary" onclick="show('overview', document.querySelectorAll('.nav-btn')[1])">See your risk dashboard →</button>
-          <button class="cover-cta-secondary" onclick="show('interventions', document.querySelectorAll('.nav-btn')[3])">View recommended actions</button>
+          <div class="welcome-step" onclick="show('stores', document.querySelectorAll('.nav-btn')[2])">
+            <div class="welcome-step-num">2</div>
+            <div class="welcome-step-content">
+              <div class="welcome-step-title">Review your store watch list</div>
+              <div class="welcome-step-body">See every store in your area with their current risk score, recent audit results, and the key flags driving their score.</div>
+            </div>
+            <div class="welcome-step-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="welcome-step" onclick="show('interventions', document.querySelectorAll('.nav-btn')[3])">
+            <div class="welcome-step-num">3</div>
+            <div class="welcome-step-content">
+              <div class="welcome-step-title">Act on this week's interventions</div>
+              <div class="welcome-step-body">Four specific actions ranked by impact. Do these before Friday and your area risk score drops by up to 30 points.</div>
+            </div>
+            <div class="welcome-step-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -1325,6 +1532,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:89%"></div></div>
             <div class="store-flags">3 staff under 90 days · Near school · No manager logged Fri pm</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;" title="Fail"></div><div style="width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;" title="Fail"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div></div>
+            </div>
           </div>
           <div class="store-card">
             <div class="store-accent accent-red"></div>
@@ -1336,6 +1547,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:83%"></div></div>
             <div class="store-flags">Last audit failed · Training overdue for 5 staff · Easter roster unconfirmed</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;" title="Fail"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;" title="Fail"></div></div>
+            </div>
           </div>
           <div class="store-card">
             <div class="store-accent accent-red"></div>
@@ -1347,6 +1562,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:77%"></div></div>
             <div class="store-flags">High footfall · 2 new supervisors this month · Fri/Sat evenings flagged</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#FF3B30;flex-shrink:0;" title="Fail"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div></div>
+            </div>
           </div>
           <div class="store-card">
             <div class="store-accent accent-amber"></div>
@@ -1358,6 +1577,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-amber" style="width:61%"></div></div>
             <div class="store-flags">Seasonal staff increase · Training completed but recent joins</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div></div>
+            </div>
           </div>
           <div class="store-card">
             <div class="store-accent accent-amber"></div>
@@ -1369,6 +1592,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-amber" style="width:54%"></div></div>
             <div class="store-flags">Audit due next week · Scores stable but footfall rising</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div></div>
+            </div>
           </div>
           <div class="store-card">
             <div class="store-accent accent-green"></div>
@@ -1380,6 +1607,10 @@ body {
             </div>
             <div class="store-bar-track"><div class="store-bar-fill fill-green" style="width:28%"></div></div>
             <div class="store-flags">All staff trained · Experienced team · Manager cover confirmed</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);">
+              <span style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;flex:1">Last 3 audits</span>
+              <div style="display:flex;gap:5px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div><div style="width:10px;height:10px;border-radius:50%;background:#34C759;flex-shrink:0;" title="Pass"></div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1502,6 +1733,151 @@ body {
           </div>
         </div>
 
+      </div>
+
+
+      <!-- ── AUDIT HISTORY ── -->
+      <div id="history" class="panel">
+        <div class="section-label">Audit history — all stores in your area</div>
+        <div class="history-table-wrap">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th class="history-th" style="width:200px">Store</th>
+                <th class="history-th center">Oct</th>
+                <th class="history-th center">Nov</th>
+                <th class="history-th center">Dec</th>
+                <th class="history-th center">Jan</th>
+                <th class="history-th center">Feb</th>
+                <th class="history-th center">Mar</th>
+                <th class="history-th" style="width:120px">Pass rate</th>
+                <th class="history-th" style="width:100px">Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Peckham</div>
+                  <div class="history-store-meta">South London · Convenience</div>
+                </td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-amber" style="width:50%"></div></div>
+                    <span class="pr-num">50%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-down">Declining</span></td>
+              </tr>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Woolwich</div>
+                  <div class="history-store-meta">South East London · Full format</div>
+                </td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-amber" style="width:50%"></div></div>
+                    <span class="pr-num">50%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-down">Declining</span></td>
+              </tr>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Brixton</div>
+                  <div class="history-store-meta">South London · Full format</div>
+                </td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-amber" style="width:67%"></div></div>
+                    <span class="pr-num">67%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-stable">Mixed</span></td>
+              </tr>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Greenwich</div>
+                  <div class="history-store-meta">South East London · Full format</div>
+                </td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-green" style="width:83%"></div></div>
+                    <span class="pr-num">83%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-stable">Stable</span></td>
+              </tr>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Lewisham</div>
+                  <div class="history-store-meta">South London · Convenience</div>
+                </td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot fail">F</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-green" style="width:83%"></div></div>
+                    <span class="pr-num">83%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-stable">Stable</span></td>
+              </tr>
+              <tr class="history-tr">
+                <td class="history-td">
+                  <div class="history-store-name">Tesco Eltham</div>
+                  <div class="history-store-meta">South East London · Full format</div>
+                </td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td"><div class="audit-dot pass">P</div></td>
+                <td class="history-td">
+                  <div class="pass-rate-bar">
+                    <div class="pr-track"><div class="pr-fill fill-green" style="width:100%"></div></div>
+                    <span class="pr-num">100%</span>
+                  </div>
+                </td>
+                <td class="history-td"><span class="trend-pill trend-up">Excellent</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Insight callout -->
+        <div style="background:var(--surface-solid);border:0.5px solid var(--border);border-left:4px solid var(--burgundy);border-radius:var(--radius-md);padding:18px 22px;box-shadow:var(--shadow-sm)">
+          <div style="font-size:12px;font-weight:600;color:var(--burgundy);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Area manager insight</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.75">Peckham and Woolwich are both showing a declining pattern over the last three audits. These are not isolated failures — they point to an underlying staffing or management issue that a single intervention will not fix. Both stores should be on your visit plan this week, and both warrant a deeper conversation with their store managers about staffing consistency and training culture.</div>
+        </div>
       </div>
 
       <!-- ── HOW THE AI WORKS ── -->
