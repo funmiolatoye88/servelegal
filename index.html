@@ -504,6 +504,98 @@ body {
 .i-pts { font-size: 24px; font-weight: 700; color: var(--green); letter-spacing: -1px; line-height: 1; }
 .i-pts-label { font-size: 10px; color: var(--text-3); margin-top: 2px; }
 
+
+/* ─── ROADMAP SECTION ─────────────────────────────── */
+.roadmap-card {
+  background: linear-gradient(135deg, #0f1f35 0%, #1E3A5F 60%, #16213e 100%);
+  border-radius: var(--radius-xl);
+  padding: 32px 36px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-lg);
+  position: relative; overflow: hidden;
+}
+
+.roadmap-card::before {
+  content: '';
+  position: absolute; top: -50px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,31,62,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.roadmap-eyebrow {
+  font-size: 10px; font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.roadmap-title {
+  font-size: 20px; font-weight: 700; color: #fff;
+  letter-spacing: -0.5px; line-height: 1.2;
+  margin-bottom: 10px; position: relative;
+}
+
+.roadmap-title span {
+  background: linear-gradient(135deg, #E88FAC, #C45C80);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.roadmap-body {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  line-height: 1.75; margin-bottom: 24px;
+  position: relative; max-width: 680px;
+}
+
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px; position: relative;
+}
+
+.roadmap-item {
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  transition: background 0.18s;
+}
+
+.roadmap-item:hover { background: rgba(255,255,255,0.09); }
+
+.roadmap-item-phase {
+  font-size: 10px; font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 8px;
+}
+
+.roadmap-item-title {
+  font-size: 13px; font-weight: 600; color: #fff;
+  margin-bottom: 6px; letter-spacing: -0.1px;
+}
+
+.roadmap-item-body {
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+
+.roadmap-item-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 10px; padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.5);
+  border: 0.5px solid rgba(255,255,255,0.1);
+}
+
+.roadmap-tag-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+}
+.tag-now   .roadmap-tag-dot { background: var(--green); }
+.tag-next  .roadmap-tag-dot { background: var(--amber); }
+.tag-later .roadmap-tag-dot { background: rgba(255,255,255,0.3); }
+
 /* ─── SCROLLBAR ─────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -1072,8 +1164,8 @@ body {
         <div class="cover-section-title">The problem it solves</div>
         <div class="cover-problem-box">
           <div class="cover-problem-label">The old way</div>
-          <div class="cover-problem-text">Right now, your compliance reports tell you what already went wrong. A store failed. A member of staff didn't ask for ID. You find out after the fact: sometimes weeks later: when the fine has already landed or the reputation damage is done.</div>
-          <div class="cover-problem-sub">That's like checking your smoke alarm after the fire. Retailers have been operating this way for decades, not because they want to: but because nothing better has existed. Until now.</div>
+          <div class="cover-problem-text">Right now, your compliance reports tell you what already went wrong. A store failed. A member of staff didn't ask for ID. You find out after the fact: sometimes weeks later, when the fine has already landed or the reputation damage is done.</div>
+          <div class="cover-problem-sub">Most retailers already have point-of-sale prompts that remind staff to check ID when alcohol or tobacco is scanned. But prompts don't prevent failures — they create the moment of decision. On a Friday night, with a long queue, a new starter on the till and no manager on the floor, that prompt gets dismissed. This platform tells you which stores have the conditions that lead staff to override that decision, and what to do about it before the auditor walks in.</div>
         </div>
 
         <!-- The three pillars -->
@@ -1382,6 +1474,34 @@ body {
             </div>
           </div>
         </div>
+
+        <!-- Roadmap -->
+        <div class="roadmap-card">
+          <div class="roadmap-eyebrow">Where this goes next</div>
+          <div class="roadmap-title">The roadmap: from risk briefing<br>to <span>compliance intelligence layer</span></div>
+          <div class="roadmap-body">The current platform works with ServeLegal audit outcomes and staffing signals. But there is a richer data source that most retailers already have and are not using for compliance intelligence: point-of-sale override data. Every time a POS system flags an age-restricted item and a staff member dismisses the prompt without checking ID, that event is logged. That data, connected to this platform, transforms the risk model entirely — from predicting who might fail to identifying stores with a systemic culture of override. Here is what the product roadmap looks like.</div>
+          <div class="roadmap-grid">
+            <div class="roadmap-item">
+              <div class="roadmap-item-phase">Now</div>
+              <div class="roadmap-item-title">Audit outcome intelligence</div>
+              <div class="roadmap-item-body">Predict which stores will fail their next audit based on staffing, tenure, calendar, and historical patterns. Deliver ranked interventions before the audit window opens.</div>
+              <div class="roadmap-item-tag tag-now"><div class="roadmap-tag-dot"></div>Live POC</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-item-phase">Next — 6 to 12 months</div>
+              <div class="roadmap-item-title">POS override integration</div>
+              <div class="roadmap-item-body">Connect to client POS systems to ingest prompt dismissal data. Stores with high override rates are flagged as culture risk, not just staffing risk. A fundamentally stronger predictive signal.</div>
+              <div class="roadmap-item-tag tag-next"><div class="roadmap-tag-dot"></div>In roadmap</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-item-phase">Future — 12 to 24 months</div>
+              <div class="roadmap-item-title">Compliance behaviour exchange</div>
+              <div class="roadmap-item-body">Anonymised, aggregated override and failure data across the full client estate becomes an industry benchmarking product. Clients pay to know how their compliance culture compares to sector peers.</div>
+              <div class="roadmap-item-tag tag-later"><div class="roadmap-tag-dot"></div>Strategic horizon</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ── HOW THE AI WORKS ── -->
