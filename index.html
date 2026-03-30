@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ServeLegal: Tesco Compliance Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #F5F5F7;
+  --surface: rgba(255,255,255,0.85);
+  --surface-solid: #FFFFFF;
+  --surface-2: rgba(255,255,255,0.6);
+  --surface-3: rgba(255,255,255,0.4);
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.10);
+  --text-1: #1D1D1F;
+  --text-2: #6E6E73;
+  --text-3: #AEAEB2;
+  --navy: #1E3A5F;
+  --burgundy: #7A1F3E;
+  --accent: #0071E3;
+  --red: #FF3B30;
+  --red-bg: rgba(255,59,48,0.08);
+  --red-mid: rgba(255,59,48,0.15);
+  --amber: #FF9500;
+  --amber-bg: rgba(255,149,0,0.08);
+  --green: #34C759;
+  --green-bg: rgba(52,199,89,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.10), 0 32px 64px rgba(0,0,0,0.06);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  --sidebar-w: 240px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── LAYOUT ─────────────────────────────────── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ─── SIDEBAR ─────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  background: rgba(28,28,30,0.96);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  z-index: 100;
+  border-right: 0.5px solid rgba(255,255,255,0.06);
+  box-shadow: 2px 0 40px rgba(0,0,0,0.25);
+}
+
+.sidebar-brand {
+  padding: 28px 20px 22px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+
+.brand-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+
+.brand-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(145deg, #9B2E52, #7A1F3E);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(122,31,62,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.brand-icon-text {
+  font-size: 13px; font-weight: 700; color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.brand-name { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+.brand-sub  { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+
+.client-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.07);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  width: 100%;
+}
+
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 2px rgba(52,199,89,0.25);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 2px rgba(52,199,89,0.25); }
+  50%      { box-shadow: 0 0 0 5px rgba(52,199,89,0.0); }
+}
+
+.nav { padding: 16px 12px; flex: 1; }
+
+.nav-section-label {
+  font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  padding: 0 10px; margin: 14px 0 4px;
+}
+.nav-section-label:first-child { margin-top: 0; }
+
+.nav-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  border: none; background: none; cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font); font-size: 13px; font-weight: 400;
+  text-align: left;
+  transition: all 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin-bottom: 1px;
+  position: relative;
+}
+
+.nav-btn:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+
+.nav-btn.active {
+  background: rgba(255,255,255,0.10);
+  color: #fff; font-weight: 500;
+}
+
+.nav-btn.active::before {
+  content: '';
+  position: absolute; left: 0; top: 20%; bottom: 20%;
+  width: 2.5px; border-radius: 2px;
+  background: var(--burgundy);
+}
+
+.nav-icon { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.6; }
+.nav-btn.active .nav-icon { opacity: 1; }
+
+.nav-badge {
+  margin-left: auto;
+  font-size: 10px; font-weight: 600;
+  background: var(--red); color: #fff;
+  padding: 1px 6px; border-radius: 10px;
+}
+
+.sidebar-footer {
+  padding: 14px 20px;
+  border-top: 0.5px solid rgba(255,255,255,0.06);
+  font-size: 11px; color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+}
+
+/* ─── MAIN ─────────────────────────────────── */
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,245,247,0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 0.5px solid var(--border-strong);
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.topbar-title { font-size: 17px; font-weight: 600; color: var(--text-1); letter-spacing: -0.4px; }
+.topbar-sub   { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  border: 0.5px solid transparent;
+}
+
+.chip-week   { background: rgba(0,0,0,0.05); color: var(--text-2); border-color: var(--border); }
+.chip-danger { background: var(--red-bg); color: var(--red); border-color: rgba(255,59,48,0.15); }
+.chip-dot    { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ─── CONTENT ─────────────────────────────────── */
+.content { padding: 28px 32px; flex: 1; }
+.panel { display: none; }
+.panel.active { display: block; animation: fadeUp 0.3s cubic-bezier(0.25,0.46,0.45,0.94); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── ALERT BANNER ─────────────────────────────── */
+.alert-banner {
+  background: linear-gradient(135deg, rgba(255,59,48,0.06) 0%, rgba(255,59,48,0.03) 100%);
+  border: 0.5px solid rgba(255,59,48,0.18);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+.alert-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--red-mid);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.alert-text { flex: 1; }
+.alert-title { font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 2px; }
+.alert-body  { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+
+.alert-cta {
+  padding: 7px 14px; border-radius: 20px;
+  background: var(--red); color: #fff;
+  font-size: 12px; font-weight: 600; font-family: var(--font);
+  border: none; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255,59,48,0.35);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.alert-cta:hover { background: #e6342a; transform: scale(1.02); }
+
+/* ─── METRICS ─────────────────────────────────── */
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-bottom: 28px; }
+
+.metric-card {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  padding: 22px 22px 18px;
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.metric-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.metric-glow {
+  position: absolute; top: -20px; right: -20px;
+  width: 80px; height: 80px; border-radius: 50%;
+  filter: blur(20px); opacity: 0.12;
+}
+.metric-glow.red    { background: var(--red); }
+.metric-glow.amber  { background: var(--amber); }
+.metric-glow.green  { background: var(--green); }
+.metric-glow.navy   { background: var(--navy); }
+
+.metric-label { font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.metric-value { font-size: 36px; font-weight: 700; letter-spacing: -2px; line-height: 1; color: var(--text-1); margin-bottom: 8px; }
+.metric-delta { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.delta-red   { color: var(--red); }
+.delta-green { color: var(--green); }
+.delta-grey  { color: var(--text-3); }
+
+.metric-tag {
+  position: absolute; top: 18px; right: 18px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.metric-tag.red   { background: var(--red-bg); }
+.metric-tag.amber { background: var(--amber-bg); }
+.metric-tag.green { background: var(--green-bg); }
+.metric-tag.navy  { background: rgba(30,58,95,0.08); }
+
+/* ─── SECTION LABEL ─────────────────────────────── */
+.section-label {
+  font-size: 11px; font-weight: 600; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+/* ─── CARD ─────────────────────────────────── */
+.card {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+
+.card-head {
+  padding: 18px 22px 14px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.card-title { font-size: 14px; font-weight: 600; color: var(--text-1); letter-spacing: -0.2px; }
+.card-sub   { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* ─── RISK ROWS ─────────────────────────────── */
+.risk-list { padding: 0 22px; }
+
+.risk-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.15s;
+}
+.risk-row:last-child { border-bottom: none; }
+
+.risk-left { flex: 1; min-width: 0; }
+.risk-period { font-size: 13px; font-weight: 500; color: var(--text-1); margin-bottom: 3px; }
+.risk-reason { font-size: 12px; color: var(--text-2); line-height: 1.45; }
+
+.risk-score-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.risk-bar-track { width: 90px; height: 4px; background: rgba(0,0,0,0.06); border-radius: 2px; overflow: hidden; }
+.risk-bar-fill  { height: 100%; border-radius: 2px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+.fill-red   { background: linear-gradient(90deg, #FF6B6B, var(--red)); }
+.fill-amber { background: linear-gradient(90deg, #FFBE6B, var(--amber)); }
+.fill-green { background: linear-gradient(90deg, #8EFFA4, var(--green)); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+}
+.badge-red   { background: var(--red-bg);   color: var(--red);   border: 0.5px solid rgba(255,59,48,0.15); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); border: 0.5px solid rgba(255,149,0,0.15); }
+.badge-green { background: var(--green-bg); color: var(--green); border: 0.5px solid rgba(52,199,89,0.15); }
+.badge-grey  { background: rgba(0,0,0,0.04); color: var(--text-2); border: 0.5px solid var(--border); }
+
+/* ─── STORES GRID ─────────────────────────────── */
+.stores-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-bottom: 16px; }
+
+.store-card {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+  position: relative; overflow: hidden;
+}
+.store-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.store-accent {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.accent-red   { background: linear-gradient(90deg, var(--red), #FF6B6B); }
+.accent-amber { background: linear-gradient(90deg, var(--amber), #FFBE6B); }
+.accent-green { background: linear-gradient(90deg, var(--green), #8EFFA4); }
+
+.store-name { font-size: 14px; font-weight: 600; color: var(--text-1); margin-bottom: 2px; letter-spacing: -0.2px; }
+.store-meta { font-size: 11px; color: var(--text-3); margin-bottom: 14px; }
+
+.store-score-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.store-score-num { font-size: 32px; font-weight: 700; letter-spacing: -2px; line-height: 1; }
+.score-red   { color: var(--red); }
+.score-amber { color: var(--amber); }
+.score-green { color: var(--green); }
+
+.store-bar-track { height: 4px; background: rgba(0,0,0,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+.store-bar-fill  { height: 100%; border-radius: 2px; }
+
+.store-flags { font-size: 11px; color: var(--text-2); line-height: 1.65; }
+
+/* ─── BRIEFING ─────────────────────────────── */
+.briefing-card {
+  background: var(--surface-solid);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.briefing-hero {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2a4f80 50%, #1a305a 100%);
+  padding: 32px 32px 28px;
+  position: relative; overflow: hidden;
+}
+
+.briefing-hero::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(122,31,62,0.3);
+  filter: blur(30px);
+}
+
+.briefing-hero::after {
+  content: '';
+  position: absolute; bottom: -30px; left: 40px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  filter: blur(20px);
+}
+
+.briefing-eyebrow {
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 8px;
+}
+
+.briefing-hero-title {
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: -0.6px; line-height: 1.2;
+  margin-bottom: 10px; position: relative;
+}
+
+.briefing-hero-sub { font-size: 13px; color: rgba(255,255,255,0.55); position: relative; }
+
+.briefing-body { padding: 28px 32px; }
+
+.briefing-para { font-size: 13px; color: var(--text-2); line-height: 1.8; margin-bottom: 16px; }
+.briefing-para:last-child { margin-bottom: 0; }
+
+.briefing-highlight {
+  background: var(--red-bg);
+  border: 0.5px solid rgba(255,59,48,0.15);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin: 16px 0;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.highlight-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.highlight-text { font-size: 13px; font-weight: 500; color: var(--red); line-height: 1.5; }
+
+.briefing-action {
+  background: linear-gradient(135deg, rgba(30,58,95,0.05), rgba(30,58,95,0.02));
+  border: 0.5px solid rgba(30,58,95,0.12);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 20px;
+}
+
+.briefing-action-text { font-size: 13px; font-weight: 600; color: var(--navy); }
+.briefing-action-sub  { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+.action-btn {
+  padding: 8px 18px; border-radius: 20px;
+  background: var(--navy); color: #fff;
+  font-size: 12px; font-weight: 600; font-family: var(--font);
+  border: none; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(30,58,95,0.3);
+  transition: all 0.18s;
+}
+.action-btn:hover { background: var(--navy-light, #2a4f80); transform: scale(1.03); }
+
+/* ─── INTERVENTIONS ─────────────────────────────── */
+.interventions-list { padding: 0; }
+
+.intervention-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 20px 22px;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.15s;
+}
+.intervention-item:last-child { border-bottom: none; }
+.intervention-item:hover { background: rgba(0,0,0,0.015); }
+
+.i-bubble {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.i-1 { background: linear-gradient(135deg,#E8F0FA,#D0E0F7); color: var(--navy); }
+.i-2 { background: linear-gradient(135deg,#FFF3E0,#FFE0B2); color: #E65100; }
+.i-3 { background: linear-gradient(135deg,#E8F0FA,#D0E0F7); color: var(--navy); }
+.i-4 { background: linear-gradient(135deg,#E8F5E9,#C8E6C9); color: #2E7D32; }
+
+.i-content { flex: 1; }
+.i-title { font-size: 14px; font-weight: 600; color: var(--text-1); margin-bottom: 5px; letter-spacing: -0.2px; }
+.i-desc  { font-size: 12px; color: var(--text-2); line-height: 1.65; margin-bottom: 8px; }
+.i-impact {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; color: var(--green);
+  background: var(--green-bg); padding: 3px 10px; border-radius: 20px;
+  border: 0.5px solid rgba(52,199,89,0.2);
+}
+
+.i-right { flex-shrink: 0; text-align: right; padding-top: 4px; }
+.i-pts { font-size: 24px; font-weight: 700; color: var(--green); letter-spacing: -1px; line-height: 1; }
+.i-pts-label { font-size: 10px; color: var(--text-3); margin-top: 2px; }
+
+/* ─── SCROLLBAR ─────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 10px; }
+
+/* ─── COVER PAGE ─────────────────────────────── */
+.cover-hero {
+  background: linear-gradient(145deg, #0f1f35 0%, #1E3A5F 45%, #2a1828 100%);
+  border-radius: var(--radius-xl);
+  padding: 64px 56px 56px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.cover-hero::before {
+  content: '';
+  position: absolute; top: -80px; right: -60px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,31,62,0.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cover-hero::after {
+  content: '';
+  position: absolute; bottom: -60px; left: 80px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,113,227,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cover-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 28px;
+}
+
+.cover-eyebrow-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--burgundy);
+}
+
+.cover-headline {
+  font-size: 48px; font-weight: 700; color: #fff;
+  letter-spacing: -2px; line-height: 1.08;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.cover-headline span {
+  background: linear-gradient(135deg, #E88FAC, #C45C80);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-subheadline {
+  font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.5);
+  letter-spacing: -0.4px; line-height: 1.4;
+  margin-bottom: 44px; max-width: 560px;
+  position: relative;
+}
+
+.cover-stats {
+  display: flex; gap: 0;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  position: relative;
+  max-width: 600px;
+}
+
+.cover-stat {
+  flex: 1;
+  padding: 18px 24px;
+  border-right: 0.5px solid rgba(255,255,255,0.08);
+}
+.cover-stat:last-child { border-right: none; }
+
+.cover-stat-num {
+  font-size: 28px; font-weight: 700; color: #fff;
+  letter-spacing: -1.5px; line-height: 1;
+  margin-bottom: 4px;
+}
+
+.cover-stat-label {
+  font-size: 11px; color: rgba(255,255,255,0.35);
+  line-height: 1.4;
+}
+
+/* Value prop section */
+.cover-section-title {
+  font-size: 11px; font-weight: 600; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 16px;
+}
+
+.cover-problem-box {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+
+.cover-problem-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--red), rgba(255,59,48,0.3));
+  border-radius: 4px 0 0 4px;
+}
+
+.cover-problem-label {
+  font-size: 10px; font-weight: 700; color: var(--red);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.cover-problem-text {
+  font-size: 16px; font-weight: 500; color: var(--text-1);
+  line-height: 1.6; letter-spacing: -0.2px;
+  margin-bottom: 14px;
+}
+
+.cover-problem-sub {
+  font-size: 13px; color: var(--text-2);
+  line-height: 1.7;
+}
+
+.cover-three-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 14px; margin-bottom: 20px;
+}
+
+.cover-feature {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--border);
+  padding: 24px 22px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cover-feature:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.cover-feature-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.icon-red   { background: var(--red-bg);   border: 0.5px solid rgba(255,59,48,0.15); }
+.icon-amber { background: var(--amber-bg); border: 0.5px solid rgba(255,149,0,0.15); }
+.icon-green { background: var(--green-bg); border: 0.5px solid rgba(52,199,89,0.15); }
+.icon-navy  { background: rgba(30,58,95,0.07); border: 0.5px solid rgba(30,58,95,0.12); }
+
+.cover-feature-title {
+  font-size: 14px; font-weight: 600; color: var(--text-1);
+  letter-spacing: -0.2px; margin-bottom: 8px;
+}
+
+.cover-feature-body {
+  font-size: 13px; color: var(--text-2); line-height: 1.65;
+}
+
+.cover-quote-box {
+  background: linear-gradient(135deg, rgba(30,58,95,0.04), rgba(30,58,95,0.02));
+  border: 0.5px solid rgba(30,58,95,0.12);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+
+.cover-quote-mark {
+  font-size: 56px; line-height: 0.8;
+  color: rgba(30,58,95,0.15);
+  font-family: Georgia, serif;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.cover-quote-text {
+  font-size: 17px; font-weight: 500; color: var(--navy);
+  line-height: 1.6; letter-spacing: -0.3px;
+}
+
+.cover-quote-source {
+  font-size: 12px; color: var(--text-3);
+  margin-top: 10px;
+}
+
+.cover-cta-row {
+  display: flex; gap: 12px; align-items: center;
+}
+
+.cover-cta-primary {
+  padding: 13px 28px; border-radius: 24px;
+  background: var(--navy); color: #fff;
+  font-size: 14px; font-weight: 600; font-family: var(--font);
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(30,58,95,0.3);
+  transition: all 0.18s;
+  letter-spacing: -0.2px;
+}
+.cover-cta-primary:hover { background: #2a4f80; transform: scale(1.02); box-shadow: 0 6px 20px rgba(30,58,95,0.4); }
+
+.cover-cta-secondary {
+  padding: 13px 28px; border-radius: 24px;
+  background: transparent; color: var(--text-2);
+  font-size: 14px; font-weight: 500; font-family: var(--font);
+  border: 0.5px solid var(--border-strong); cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: -0.2px;
+}
+.cover-cta-secondary:hover { background: var(--surface-solid); color: var(--text-1); }
+
+/* ─── JOURNEY PAGE ─────────────────────────────── */
+.journey-intro {
+  background: linear-gradient(135deg, #0f1f35 0%, #1E3A5F 60%, #16213e 100%);
+  border-radius: var(--radius-xl);
+  padding: 48px 52px;
+  margin-bottom: 28px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.journey-intro::before {
+  content: '';
+  position: absolute; top: -60px; right: -40px;
+  width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,31,62,0.35) 0%, transparent 70%);
+}
+
+.journey-intro-label {
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+
+.journey-intro-title {
+  font-size: 34px; font-weight: 700; color: #fff;
+  letter-spacing: -1.5px; line-height: 1.1;
+  margin-bottom: 14px; position: relative;
+}
+
+.journey-intro-body {
+  font-size: 15px; color: rgba(255,255,255,0.5);
+  line-height: 1.7; max-width: 580px; position: relative;
+}
+
+.journey-steps { display: flex; flex-direction: column; gap: 0; }
+
+.journey-step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 20px;
+  position: relative;
+}
+
+.journey-spine {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 24px;
+}
+
+.journey-node {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+  position: relative; z-index: 1;
+  border: 3px solid var(--surface-solid);
+}
+
+.jn-1 { background: linear-gradient(135deg, #1E3A5F, #2a5298); }
+.jn-2 { background: linear-gradient(135deg, #7A1F3E, #a83260); }
+.jn-3 { background: linear-gradient(135deg, #E65100, #FF6D00); }
+.jn-4 { background: linear-gradient(135deg, #1565C0, #1976D2); }
+.jn-5 { background: linear-gradient(135deg, #1B5E20, #2E7D32); }
+.jn-6 { background: linear-gradient(135deg, #4A148C, #6A1B9A); }
+
+.journey-line {
+  width: 2px;
+  flex: 1;
+  min-height: 32px;
+  background: linear-gradient(180deg, var(--border-strong), var(--border));
+  margin: 4px 0;
+}
+
+.journey-step:last-child .journey-line { display: none; }
+
+.journey-card {
+  background: var(--surface-solid);
+  border-radius: var(--radius-lg);
+  border: 0.5px solid var(--border);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.journey-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.journey-card-head {
+  padding: 22px 24px 16px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: flex-start; gap: 14px;
+}
+
+.journey-step-num {
+  font-size: 10px; font-weight: 700; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.journey-card-title {
+  font-size: 16px; font-weight: 700; color: var(--text-1);
+  letter-spacing: -0.4px; line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.journey-card-subtitle {
+  font-size: 13px; color: var(--text-2); line-height: 1.5;
+}
+
+.journey-card-body { padding: 20px 24px; }
+
+.journey-what-box {
+  background: rgba(30,58,95,0.04);
+  border: 0.5px solid rgba(30,58,95,0.1);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.journey-what-label {
+  font-size: 10px; font-weight: 700; color: var(--navy);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 8px;
+}
+
+.journey-what-text {
+  font-size: 13px; color: var(--text-1); line-height: 1.7;
+  font-weight: 500;
+}
+
+.journey-plain-box {
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.journey-plain-label {
+  font-size: 10px; font-weight: 700; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 8px;
+}
+
+.journey-plain-text {
+  font-size: 13px; color: var(--text-2); line-height: 1.75;
+}
+
+.journey-signals {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px; margin-bottom: 16px;
+}
+
+.journey-signal {
+  background: var(--surface-solid);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.js-icon { font-size: 18px; margin-bottom: 8px; }
+.js-label { font-size: 12px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+.js-value { font-size: 11px; color: var(--text-3); line-height: 1.5; }
+
+.journey-output-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+  margin-right: 6px; margin-bottom: 6px;
+}
+
+.pill-red   { background: var(--red-bg);   color: var(--red);   border: 0.5px solid rgba(255,59,48,0.15); }
+.pill-amber { background: var(--amber-bg); color: var(--amber); border: 0.5px solid rgba(255,149,0,0.15); }
+.pill-green { background: var(--green-bg); color: var(--green); border: 0.5px solid rgba(52,199,89,0.15); }
+.pill-navy  { background: rgba(30,58,95,0.07); color: var(--navy); border: 0.5px solid rgba(30,58,95,0.12); }
+
+.journey-result-strip {
+  background: linear-gradient(135deg, rgba(52,199,89,0.06), rgba(52,199,89,0.02));
+  border: 0.5px solid rgba(52,199,89,0.18);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.jrs-icon { font-size: 20px; flex-shrink: 0; }
+.jrs-text { font-size: 13px; font-weight: 500; color: #1B5E20; line-height: 1.5; }
+
+.journey-connector {
+  display: flex; align-items: center; justify-content: center;
+  padding: 4px 0 4px 34px;
+}
+
+.journey-connector-inner {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text-3);
+  font-weight: 500;
+}
+
+.journey-connector-line {
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong));
+}
+
+.journey-connector-line.r {
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+}
+
+.journey-final {
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+  border-radius: var(--radius-xl);
+  padding: 36px 40px;
+  margin-top: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 32px;
+}
+
+.journey-final-icon { font-size: 52px; flex-shrink: 0; }
+
+.journey-final-title {
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: -0.6px; margin-bottom: 8px;
+}
+
+.journey-final-body {
+  font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65;
+}
+
+.journey-final-stats {
+  display: flex; gap: 24px; margin-top: 20px;
+}
+
+.jf-stat-num { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+.jf-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-row">
+        <div class="brand-icon"><span class="brand-icon-text">SL</span></div>
+        <div>
+          <div class="brand-name">ServeLegal</div>
+          <div class="brand-sub">Intelligence Platform</div>
+        </div>
+      </div>
+      <div class="client-chip">
+        <div class="live-dot"></div>
+        Tesco: Live
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-section-label">Start here</div>
+      <button class="nav-btn active" onclick="show('cover',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="2"/><path d="M5 5h6M5 8h6M5 11h3"/></svg>
+        Product overview
+      </button>
+      <div class="nav-section-label">Monitor</div>
+      <button class="nav-btn" onclick="show('overview',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5" opacity="0.9"/><rect x="9" y="1" width="6" height="6" rx="1.5" opacity="0.5"/><rect x="1" y="9" width="6" height="6" rx="1.5" opacity="0.5"/><rect x="9" y="9" width="6" height="6" rx="1.5" opacity="0.5"/></svg>
+        Risk overview
+        <span class="nav-badge">4</span>
+      </button>
+      <button class="nav-btn" onclick="show('stores',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l6-4 6 4v8H2V6z"/><path d="M6 10h4v4H6z"/></svg>
+        Store watch list
+      </button>
+      <div class="nav-section-label">Act</div>
+      <button class="nav-btn" onclick="show('briefing',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 9h4"/></svg>
+        Manager briefing
+      </button>
+      <button class="nav-btn" onclick="show('interventions',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 3L6 10l-3-3"/><circle cx="8" cy="8" r="6"/></svg>
+        Interventions
+      </button>
+      <div class="nav-section-label">Understand</div>
+      <button class="nav-btn" onclick="show('journey',this)">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+        How the AI works
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      Week 14 &middot; April 2026<br>
+      South London region
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-title">Compliance Risk Briefing</div>
+        <div class="topbar-sub">Easter period · 11 stores monitored</div>
+      </div>
+      <div class="topbar-actions">
+        <span class="chip chip-week">Week 14</span>
+        <span class="chip chip-danger"><span class="chip-dot"></span>Risk score: 72 ▲</span>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ── COVER ── -->
+      <div id="cover" class="panel active">
+
+        <!-- Hero -->
+        <div class="cover-hero">
+          <div class="cover-eyebrow">
+            <div class="cover-eyebrow-dot"></div>
+            Powered by ServeLegal Intelligence
+          </div>
+          <div class="cover-headline">
+            Know which stores will fail<br>
+            <span>before they fail.</span>
+          </div>
+          <div class="cover-subheadline">
+            A compliance intelligence platform that tells retail operators exactly where their risk is, why it's happening, and what to do about it: before a auditor walks through the door.
+          </div>
+          <div class="cover-stats">
+            <div class="cover-stat">
+              <div class="cover-stat-num">250K+</div>
+              <div class="cover-stat-label">Audits analysed<br>every year</div>
+            </div>
+            <div class="cover-stat">
+              <div class="cover-stat-num">20+</div>
+              <div class="cover-stat-label">Years of compliance<br>behaviour data</div>
+            </div>
+            <div class="cover-stat">
+              <div class="cover-stat-num">4,500</div>
+              <div class="cover-stat-label">Trained mystery<br>shoppers in the field</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The problem -->
+        <div class="cover-section-title">The problem it solves</div>
+        <div class="cover-problem-box">
+          <div class="cover-problem-label">The old way</div>
+          <div class="cover-problem-text">Right now, your compliance reports tell you what already went wrong. A store failed. A member of staff didn't ask for ID. You find out after the fact: sometimes weeks later: when the fine has already landed or the reputation damage is done.</div>
+          <div class="cover-problem-sub">That's like checking your smoke alarm after the fire. Retailers have been operating this way for decades, not because they want to: but because nothing better has existed. Until now.</div>
+        </div>
+
+        <!-- The three pillars -->
+        <div class="cover-section-title">What it does</div>
+        <div class="cover-three-grid">
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-red"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="#FF3B30" stroke-width="1.6"/><path d="M12.5 12.5L17 17" stroke="#FF3B30" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div class="cover-feature-title">Spots the risk before it happens</div>
+            <div class="cover-feature-body">The platform looks at your stores right now: staffing levels, new starter counts, upcoming busy periods, past audit history. It flags which locations are most likely to fail in the next 7–14 days. You see the problem before the auditor does.</div>
+          </div>
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-amber"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3a5 5 0 015 5c0 2-1 3.5-2.5 4.5V14h-5v-1.5C6 11.5 5 10 5 8a5 5 0 015-5z" stroke="#FF9500" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 17h5M8.5 15.5h3" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="cover-feature-title">Tells you exactly why stores fail</div>
+            <div class="cover-feature-body">It's not random. Stores with staff under 90 days tenure fail 45% more often. No manager on the floor means risk jumps 25%. Near a school on a Friday afternoon adds another 20%. This platform surfaces those patterns so you can act on them: not just observe them.</div>
+          </div>
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-green"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7.5" stroke="#34C759" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 5-5" stroke="#34C759" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cover-feature-title">Tells you precisely what to do</div>
+            <div class="cover-feature-body">No vague advice. The platform gives you a ranked action list: confirm manager cover, buddy-pair new starters, run a 10-minute team briefing: each with an estimated risk reduction in points. You know exactly what you're getting for every action you take.</div>
+          </div>
+        </div>
+
+        <!-- The shift in one sentence -->
+        <div class="cover-quote-box">
+          <div class="cover-quote-mark">"</div>
+          <div>
+            <div class="cover-quote-text">This is the difference between knowing your store failed last Tuesday, and knowing it's going to fail this Friday: with enough time to stop it.</div>
+            <div class="cover-quote-source">ServeLegal Compliance Intelligence · Predictive Risk Briefing Platform</div>
+          </div>
+        </div>
+
+        <!-- Who it's for + CTA -->
+        <div class="cover-section-title">Who it's built for</div>
+        <div class="cover-three-grid" style="margin-bottom:28px">
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-navy"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="1.5" stroke="#1E3A5F" stroke-width="1.5"/><path d="M7 6h2M11 6h2M7 10h2M11 10h2M7 14h2M11 14h2" stroke="#1E3A5F" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="cover-feature-title">Head office compliance teams</div>
+            <div class="cover-feature-body">See your entire estate at a glance. Spot which regions, store formats, or time periods carry the most risk. Make better decisions with data that's forward-looking, not retrospective.</div>
+          </div>
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-amber"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6z" stroke="#FF9500" stroke-width="1.5"/><circle cx="10" cy="8" r="2.5" stroke="#FF9500" stroke-width="1.5"/></svg></div>
+            <div class="cover-feature-title">Area managers</div>
+            <div class="cover-feature-body">Know which stores need your attention this week before you set foot in them. Prioritise your visits. Have the right conversations with the right managers at the right time.</div>
+          </div>
+          <div class="cover-feature">
+            <div class="cover-feature-icon icon-green"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="#34C759" stroke-width="1.5"/><path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#34C759" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="cover-feature-title">Store managers</div>
+            <div class="cover-feature-body">Receive a plain-English briefing every week that tells you exactly where your store stands, what your risk factors are, and the three things you can do today to protect your team and your store's record.</div>
+          </div>
+        </div>
+
+        <div class="cover-cta-row">
+          <button class="cover-cta-primary" onclick="show('overview', document.querySelectorAll('.nav-btn')[1])">See your risk dashboard →</button>
+          <button class="cover-cta-secondary" onclick="show('interventions', document.querySelectorAll('.nav-btn')[3])">View recommended actions</button>
+        </div>
+
+      </div>
+
+      <!-- ── OVERVIEW ── -->
+      <div id="overview" class="panel">
+
+        <div class="alert-banner">
+          <div class="alert-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5L16.5 15H1.5L9 1.5Z" stroke="#FF3B30" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7V10.5" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="13" r="1" fill="#FF3B30"/></svg></div>
+          <div class="alert-text">
+            <div class="alert-title">Immediate action required: Easter weekend</div>
+            <div class="alert-body">6 stores have unconfirmed manager cover for 11–12 April. ID challenge failure rates rise 22% over bank holiday weekends. Rotas must be confirmed by Wednesday.</div>
+          </div>
+          <button class="alert-cta">Confirm now</button>
+        </div>
+
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="metric-glow red"></div>
+            <div class="metric-tag red"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 12H1L7 1Z" stroke="#FF3B30" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 5.5V8" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="10" r="0.75" fill="#FF3B30"/></svg></div>
+            <div class="metric-label">Overall risk score</div>
+            <div class="metric-value">72</div>
+            <div class="metric-delta delta-red">▲ 8 pts this week</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-glow red"></div>
+            <div class="metric-tag red"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5L2.5 2h9L13 5.5" stroke="#FF3B30" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 5.5h12v7H1z" stroke="#FF3B30" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 12.5V9h4v3.5" stroke="#FF3B30" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="metric-label">Stores at high risk</div>
+            <div class="metric-value">4</div>
+            <div class="metric-delta delta-red">▲ 2 new this week</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-glow navy"></div>
+            <div class="metric-tag navy"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="10" height="11" rx="1.5" stroke="#1E3A5F" stroke-width="1.3"/><path d="M5 5h4M5 7.5h4M5 10h2" stroke="#1E3A5F" stroke-width="1.3" stroke-linecap="round"/><path d="M5 1.5V3h4V1.5" stroke="#1E3A5F" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="metric-label">Audits due (7 days)</div>
+            <div class="metric-value">11</div>
+            <div class="metric-delta delta-grey">Across 3 regions</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-glow amber"></div>
+            <div class="metric-tag amber"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3l4 4 3-2.5 4 5" stroke="#FF9500" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 9.5h3v3" stroke="#FF9500" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="metric-label">Pass rate (30 days)</div>
+            <div class="metric-value">81%</div>
+            <div class="metric-delta delta-red">▼ 4% vs prev period</div>
+          </div>
+        </div>
+
+        <div class="section-label">Upcoming high-risk periods</div>
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Next 14 days: risk calendar</div>
+              <div class="card-sub">Audit windows are open across all flagged periods</div>
+            </div>
+          </div>
+          <div class="risk-list">
+            <div class="risk-row">
+              <div class="risk-left">
+                <div class="risk-period">Friday 11 Apr to Saturday 12 Apr</div>
+                <div class="risk-reason">Easter weekend peak footfall + reduced manager cover flagged at 6 stores</div>
+              </div>
+              <div class="risk-score-wrap">
+                <div class="risk-bar-track"><div class="risk-bar-fill fill-red" style="width:91%"></div></div>
+                <span class="badge badge-red">High · 91</span>
+              </div>
+            </div>
+            <div class="risk-row">
+              <div class="risk-left">
+                <div class="risk-period">Monday 14 Apr: school holiday week</div>
+                <div class="risk-reason">Near-school stores see 28% higher challenge failure rate during half-terms</div>
+              </div>
+              <div class="risk-score-wrap">
+                <div class="risk-bar-track"><div class="risk-bar-fill fill-red" style="width:78%"></div></div>
+                <span class="badge badge-red">High · 78</span>
+              </div>
+            </div>
+            <div class="risk-row">
+              <div class="risk-left">
+                <div class="risk-period">Wednesday 16 Apr: new staff cohort joins</div>
+                <div class="risk-reason">14 new starters across 4 stores, 9 of whom are under 90 days tenure</div>
+              </div>
+              <div class="risk-score-wrap">
+                <div class="risk-bar-track"><div class="risk-bar-fill fill-amber" style="width:65%"></div></div>
+                <span class="badge badge-amber">Medium · 65</span>
+              </div>
+            </div>
+            <div class="risk-row">
+              <div class="risk-left">
+                <div class="risk-period">Friday 18 Apr: late-night trade extension</div>
+                <div class="risk-reason">Stores applying for extended hours. Late shifts show lower compliance rates.</div>
+              </div>
+              <div class="risk-score-wrap">
+                <div class="risk-bar-track"><div class="risk-bar-fill fill-amber" style="width:58%"></div></div>
+                <span class="badge badge-amber">Medium · 58</span>
+              </div>
+            </div>
+            <div class="risk-row">
+              <div class="risk-left">
+                <div class="risk-period">Tuesday 22 Apr: post-holiday restaffing</div>
+                <div class="risk-reason">Post-bank-holiday scheduling typically creates temporary staff reliance</div>
+              </div>
+              <div class="risk-score-wrap">
+                <div class="risk-bar-track"><div class="risk-bar-fill fill-green" style="width:34%"></div></div>
+                <span class="badge badge-green">Low · 34</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STORES ── -->
+      <div id="stores" class="panel">
+        <div class="section-label">Stores requiring attention this week</div>
+        <div class="stores-grid">
+          <div class="store-card">
+            <div class="store-accent accent-red"></div>
+            <div class="store-name">Tesco Peckham</div>
+            <div class="store-meta">South London · Convenience</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-red">89</div>
+              <span class="badge badge-red">High risk</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:89%"></div></div>
+            <div class="store-flags">3 staff under 90 days · Near school · No manager logged Fri pm</div>
+          </div>
+          <div class="store-card">
+            <div class="store-accent accent-red"></div>
+            <div class="store-name">Tesco Woolwich</div>
+            <div class="store-meta">South East London · Full format</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-red">83</div>
+              <span class="badge badge-red">High risk</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:83%"></div></div>
+            <div class="store-flags">Last audit failed · Training overdue for 5 staff · Easter roster unconfirmed</div>
+          </div>
+          <div class="store-card">
+            <div class="store-accent accent-red"></div>
+            <div class="store-name">Tesco Brixton</div>
+            <div class="store-meta">South London · Full format</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-red">77</div>
+              <span class="badge badge-red">High risk</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-red" style="width:77%"></div></div>
+            <div class="store-flags">High footfall · 2 new supervisors this month · Fri/Sat evenings flagged</div>
+          </div>
+          <div class="store-card">
+            <div class="store-accent accent-amber"></div>
+            <div class="store-name">Tesco Greenwich</div>
+            <div class="store-meta">South East London · Full format</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-amber">61</div>
+              <span class="badge badge-amber">Medium</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-amber" style="width:61%"></div></div>
+            <div class="store-flags">Seasonal staff increase · Training completed but recent joins</div>
+          </div>
+          <div class="store-card">
+            <div class="store-accent accent-amber"></div>
+            <div class="store-name">Tesco Lewisham</div>
+            <div class="store-meta">South London · Convenience</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-amber">54</div>
+              <span class="badge badge-amber">Medium</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-amber" style="width:54%"></div></div>
+            <div class="store-flags">Audit due next week · Scores stable but footfall rising</div>
+          </div>
+          <div class="store-card">
+            <div class="store-accent accent-green"></div>
+            <div class="store-name">Tesco Eltham</div>
+            <div class="store-meta">South East London · Full format</div>
+            <div class="store-score-row">
+              <div class="store-score-num score-green">28</div>
+              <span class="badge badge-green">Low risk</span>
+            </div>
+            <div class="store-bar-track"><div class="store-bar-fill fill-green" style="width:28%"></div></div>
+            <div class="store-flags">All staff trained · Experienced team · Manager cover confirmed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BRIEFING ── -->
+      <div id="briefing" class="panel">
+        <div class="section-label">Auto-generated manager briefing, ready to distribute</div>
+        <div class="briefing-card">
+          <div class="briefing-hero">
+            <div class="briefing-eyebrow">Weekly compliance briefing · Week 14 · April 2026</div>
+            <div class="briefing-hero-title">Tesco store managers<br>Easter period risk alert</div>
+            <div class="briefing-hero-sub">11 stores monitored · Risk score 72 · Action required by Wednesday</div>
+          </div>
+          <div class="briefing-body">
+            <p class="briefing-para">This week carries elevated compliance risk across your estate. Your overall risk score has risen 8 points to 72: driven by three converging factors: Easter weekend footfall, school holiday week, and a new cohort of starters joining mid-week.</p>
+            <div class="briefing-highlight">
+              <span class="highlight-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5L16.5 15H1.5L9 1.5Z" stroke="#FF3B30" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7V10.5" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="13" r="1" fill="#FF3B30"/></svg></span>
+              <span class="highlight-text">Easter weekend (11–12 Apr) is your critical window. ID challenge rates typically fall 22% during peak bank holiday trade. Manager floor presence is non-negotiable.</span>
+            </div>
+            <p class="briefing-para">All stores should confirm a named, experienced manager is floor-present from 5pm Friday through close Saturday. Six stores have not yet confirmed their Easter rotas: this must be resolved by Wednesday.</p>
+            <p class="briefing-para">School holiday week begins 14 April. Your Peckham, Woolwich and Brixton locations have each shown higher failure rates in previous half-term periods. A brief team reminder before Friday: Challenge 25, no exceptions over the bank holiday: has been shown to lift short-term compliance by up to 15%.</p>
+            <p class="briefing-para">New starters: 14 colleagues join across 4 stores this week. No staff member under 90 days tenure should be the sole colleague covering alcohol, vapes or tobacco during peak hours. Pair each new starter with an experienced colleague for the Easter weekend.</p>
+            <div class="briefing-action">
+              <div>
+                <div class="briefing-action-text">Action required by Friday</div>
+                <div class="briefing-action-sub">Confirm Easter weekend rotas → return to area compliance lead</div>
+              </div>
+              <button class="action-btn">Send briefing</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── INTERVENTIONS ── -->
+      <div id="interventions" class="panel">
+        <div class="section-label">Recommended interventions, ranked by impact</div>
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">This week's top actions for Tesco</div>
+              <div class="card-sub">All four actions could reduce your risk score by up to 30 points before Easter weekend</div>
+            </div>
+          </div>
+          <div class="interventions-list">
+            <div class="intervention-item">
+              <div class="i-bubble i-1">1</div>
+              <div class="i-content">
+                <div class="i-title">Confirm Easter weekend manager cover at all stores</div>
+                <div class="i-desc">No-manager-on-duty is the second strongest predictor of failure. Six stores have unconfirmed rotas for 11–12 April. Each needs a named floor manager from Friday 5pm through close Saturday.</div>
+                <span class="i-impact">↓ −24 pts across affected stores</span>
+              </div>
+              <div class="i-right">
+                <div class="i-pts">24</div>
+                <div class="i-pts-label">pts saved</div>
+              </div>
+            </div>
+            <div class="intervention-item">
+              <div class="i-bubble i-2">2</div>
+              <div class="i-content">
+                <div class="i-title">Buddy-pair all new starters under 90 days during peak hours</div>
+                <div class="i-desc">Staff under 90 days tenure have a 45% higher failure rate. With 14 new starters this week, pair each with an experienced colleague during Easter and school holiday peak shifts.</div>
+                <span class="i-impact">↓ −18 pts across Peckham, Woolwich, Greenwich</span>
+              </div>
+              <div class="i-right">
+                <div class="i-pts">18</div>
+                <div class="i-pts-label">pts saved</div>
+              </div>
+            </div>
+            <div class="intervention-item">
+              <div class="i-bubble i-3">3</div>
+              <div class="i-content">
+                <div class="i-title">Run a 10-minute briefing at Peckham and Woolwich before Friday</div>
+                <div class="i-desc">Both stores have open audit windows right now. A short verbal briefing. Challenge 25, no exceptions over Easter: lifts short-term compliance rates by up to 15%.</div>
+                <span class="i-impact">↓ −15 pts at each location</span>
+              </div>
+              <div class="i-right">
+                <div class="i-pts">15</div>
+                <div class="i-pts-label">pts saved</div>
+              </div>
+            </div>
+            <div class="intervention-item">
+              <div class="i-bubble i-4">4</div>
+              <div class="i-content">
+                <div class="i-title">Book overdue training for 5 Tesco Woolwich staff members</div>
+                <div class="i-desc">Training overdue beyond 180 days increases failure risk by 30%. Even booking the session removes the risk flag and signals compliance intent. Don't leave this until after Easter.</div>
+                <span class="i-impact">↓ −12 pts at Woolwich</span>
+              </div>
+              <div class="i-right">
+                <div class="i-pts">12</div>
+                <div class="i-pts-label">pts saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HOW THE AI WORKS ── -->
+      <div id="journey" class="panel">
+
+        <div class="journey-intro">
+          <div class="journey-intro-label">Under the hood</div>
+          <div class="journey-intro-title">How the AI thinks,<br>step by step</div>
+          <div class="journey-intro-body">There's no black box here. This page walks you through exactly what the AI is doing at every stage: from the moment it ingests your data, to the moment it hands you a ranked list of things to do today. Plain English, no technical jargon.</div>
+        </div>
+
+        <div class="journey-steps">
+
+          <!-- STEP 1 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-1"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="white" stroke-width="1.5"/><path d="M9 5v6M6 8l3 3 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 1 · Data collection</div>
+                  <div class="journey-card-title">The AI reads everything it knows about your stores</div>
+                  <div class="journey-card-subtitle">Before it can spot risk, it needs to understand the full picture. Not just last week's audit, but everything that shapes whether a store is likely to pass or fail right now.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">It pulls together every data signal it has access to: audit history going back years, current staffing rosters, staff tenure records, training completion dates, footfall patterns, school proximity, upcoming calendar events, and manager cover schedules. Think of it as building a complete health check for every store simultaneously.</div>
+                </div>
+                <div class="journey-signals">
+                  <div class="journey-signal"><div class="js-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="10" height="11" rx="1.5" stroke="#1E3A5F" stroke-width="1.3"/><path d="M5 5h4M5 7.5h4M5 10h2" stroke="#1E3A5F" stroke-width="1.3" stroke-linecap="round"/><path d="M5 1.5V3h4V1.5" stroke="#1E3A5F" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="js-label">Audit history</div><div class="js-value">Every pass/fail result, product category, time of day, auditor notes</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="7" cy="7" r="3" stroke="#6E6E73" stroke-width="1.4"/><path d="M1 17c0-3.3 2.7-6 6-6" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="7" r="3" stroke="#6E6E73" stroke-width="1.4"/><path d="M12 11c3.3 0 6 2.7 6 6" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/></svg></div><div class="js-label">Staff data</div><div class="js-value">Tenure days, training dates, shift patterns, manager availability</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="13" rx="2" stroke="#6E6E73" stroke-width="1.4"/><path d="M6 1v4M12 1v4M2 7h14" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/><rect x="5" y="10" width="2" height="2" rx="0.5" fill="#6E6E73"/><rect x="9" y="10" width="2" height="2" rx="0.5" fill="#6E6E73"/></svg></div><div class="js-label">Calendar signals</div><div class="js-value">Bank holidays, school terms, local events, extended trading hours</div></div>
+                </div>
+                <div class="journey-plain-box">
+                  <div class="journey-plain-label">In plain English</div>
+                  <div class="journey-plain-text">Imagine hiring a compliance analyst who never sleeps, reads every document ever written about your stores, and updates their knowledge every single day. That's what's happening here: except it takes seconds, not weeks.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-2"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 3l4 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M5 3h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M4 13h10" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M9 11v2" stroke="white" stroke-width="1.5"/><circle cx="11" cy="7" r="3" stroke="white" stroke-width="1.5"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 2 · Pattern recognition</div>
+                  <div class="journey-card-title">It finds the hidden patterns in 20 years of failure data</div>
+                  <div class="journey-card-subtitle">This is where the intelligence lives. The AI has studied 250,000+ audits and found the conditions that reliably predict a failed mystery shop: long before the auditor walks through the door.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">It runs statistical analysis across decades of audit outcomes, cross-referencing every variable it can measure. It asks: when stores failed, what did they have in common? It found that certain factors reliably cluster around failures: and it quantified exactly how much risk each factor adds.</div>
+                </div>
+                <div class="journey-signals">
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2.5" stroke="#6E6E73" stroke-width="1.4"/><path d="M6 6v6l4-6v6M12 6v6" stroke="#6E6E73" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="js-label">New staff</div><div class="js-value">Under 90 days tenure → +45% failure rate vs experienced staff</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#6E6E73" stroke-width="1.4"/><path d="M4 14L14 4" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/></svg></div><div class="js-label">No manager</div><div class="js-value">No manager on the floor → +25% failure rate, every time</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="11" rx="1" stroke="#6E6E73" stroke-width="1.4"/><path d="M1 6l8-4 8 4" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="11" width="4" height="5" rx="0.5" stroke="#6E6E73" stroke-width="1.3"/><path d="M5 9h1.5M11.5 9H13" stroke="#6E6E73" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="js-label">School proximity</div><div class="js-value">Near a school, Friday afternoon → +20% additional risk loading</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="9" height="14" rx="1" stroke="#6E6E73" stroke-width="1.4"/><path d="M3 14h9" stroke="#6E6E73" stroke-width="1.4"/><path d="M12 4l3 1v11l-3-1" stroke="#6E6E73" stroke-width="1.4" stroke-linejoin="round"/></svg></div><div class="js-label">Overdue training</div><div class="js-value">Training lapsed 180+ days → +30% failure rate</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 10A7 7 0 018 3a7 7 0 100 14 7 7 0 007-7z" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="js-label">Late shifts</div><div class="js-value">Friday/Saturday evenings → +20% elevated risk window</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="7" cy="5" rx="2.5" ry="3.5" stroke="#6E6E73" stroke-width="1.3"/><ellipse cx="11" cy="11" rx="2.5" ry="3.5" stroke="#6E6E73" stroke-width="1.3"/></svg></div><div class="js-label">High footfall</div><div class="js-value">Peak trading periods → +15% stress on compliance behaviour</div></div>
+                </div>
+                <div class="journey-plain-box">
+                  <div class="journey-plain-label">In plain English</div>
+                  <div class="journey-plain-text">It's like a doctor who's studied thousands of patient records and can now look at your test results and say: "These three things together: that's how it usually starts." Except instead of health, it's compliance. And instead of symptoms, it's staffing patterns.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-3"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M10 2L4 10h6l-2 6 8-9h-6l2-5z" stroke="white" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 3 · Risk scoring</div>
+                  <div class="journey-card-title">Every store gets a live risk score, updated continuously</div>
+                  <div class="journey-card-subtitle">The AI doesn't just flag stores as risky. It scores every single store on a 0–100 scale, weights the factors by their proven impact, and recalculates whenever something changes.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">For each store, it loads the current conditions: who's working, how long they've been there, when training was last completed, what's happening in the calendar: and multiplies each factor by its known risk weight. These scores stack up to produce a single number that tells you exactly where each store sits on the risk spectrum right now.</div>
+                </div>
+                <div class="journey-plain-box" style="margin-bottom:14px">
+                  <div class="journey-plain-label">Live example: Tesco Peckham right now</div>
+                  <div class="journey-plain-text">3 staff under 90 days (+45%) · No manager confirmed for Friday pm (+25%) · Near school (+20%) · Easter weekend footfall spike (+15%) = <strong style="color:var(--red)">Risk score: 89 / High</strong></div>
+                </div>
+                <div style="margin-bottom:8px;font-size:12px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em">Output: risk bands across your estate</div>
+                <div>
+                  <span class="journey-output-pill pill-red">High risk: 3 stores</span>
+                  <span class="journey-output-pill pill-amber">Medium risk: 2 stores</span>
+                  <span class="journey-output-pill pill-green">Low risk: 1 store</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-4"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="white" stroke-width="1.5"/><path d="M9 5v4l2.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 4 · Forward projection</div>
+                  <div class="journey-card-title">It looks ahead and flags what's coming: not just what's happening now</div>
+                  <div class="journey-card-subtitle">A store might look fine today but become high risk on Friday. The AI projects risk forward across the next 14 days, factoring in everything it knows is coming: staff changes, holidays, calendar events, audit windows.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">It simulates how each store's risk profile will evolve over the coming days. If a new cohort of staff joins Wednesday, it knows those individuals' tenure clock starts then. If Easter weekend is approaching, it loads the historical failure rate uplift for that period. It then surfaces the windows where risk peaks: giving you time to act before the window opens.</div>
+                </div>
+                <div class="journey-signals">
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="13" rx="2" stroke="#6E6E73" stroke-width="1.4"/><path d="M6 1v4M12 1v4M2 7h14" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/><path d="M6 11h6" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/></svg></div><div class="js-label">Calendar modelling</div><div class="js-value">Bank holidays, school breaks, peak trading periods all loaded automatically</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="#34C759" stroke-width="1.5"/><path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#34C759" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="js-label">Tenure progression</div><div class="js-value">Knows which new starters cross the 90-day threshold and when</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.5"/><circle cx="9" cy="9" r="3.5" stroke="white" stroke-width="1.5"/><circle cx="9" cy="9" r="1" fill="white"/></svg></div><div class="js-label">Audit window awareness</div><div class="js-value">Knows when auditors are scheduled and overlays risk timing</div></div>
+                </div>
+                <div class="journey-plain-box">
+                  <div class="journey-plain-label">In plain English</div>
+                  <div class="journey-plain-text">It's the difference between a weather app that tells you it's raining now, and one that tells you Friday is going to be a storm: pack an umbrella on Thursday. You get time to prepare. That's the whole point.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-5"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="10" rx="2.5" stroke="white" stroke-width="1.5"/><path d="M5 16l2.5-4h5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 7h7M5.5 9.5h4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 5 · Plain-English translation</div>
+                  <div class="journey-card-title">It turns the data into a briefing any manager can understand and act on</div>
+                  <div class="journey-card-subtitle">Data is useless if people can't act on it. The AI translates every risk signal and score into clear, jargon-free language: automatically generating the weekly manager briefing, ready to send.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">It takes the risk scores, the pattern analysis, and the forward projection: and writes a weekly briefing document in plain English. It identifies the top 3 things a store manager needs to know, explains why they matter in terms any frontline person understands, and formats it for immediate distribution. No analyst required. No report-writing hours wasted. Done automatically, every week.</div>
+                </div>
+                <div class="journey-plain-box">
+                  <div class="journey-plain-label">In plain English</div>
+                  <div class="journey-plain-text">Think of it as a brilliant ops director who reads all the data, understands what it means, and writes the morning briefing for your store managers every single Monday morning: without being asked, and without getting it wrong.</div>
+                </div>
+                <div class="journey-result-strip">
+                  <div class="jrs-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#1B5E20" stroke-width="1.4"/><path d="M2 6l7 5 7-5" stroke="#1B5E20" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="jrs-text">Output: A ready-to-send manager briefing, auto-generated from live data. Personalised per store. Available every week without manual effort.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 6 -->
+          <div class="journey-step">
+            <div class="journey-spine">
+              <div class="journey-node jn-6"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.5"/><circle cx="9" cy="9" r="3.5" stroke="white" stroke-width="1.5"/><circle cx="9" cy="9" r="1" fill="white"/></svg></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-head">
+                <div>
+                  <div class="journey-step-num">Step 6 · Intervention ranking</div>
+                  <div class="journey-card-title">It tells you exactly what to do: ranked by what will save the most points</div>
+                  <div class="journey-card-subtitle">This is where it stops being an insight tool and becomes an action tool. The AI doesn't just show you the risk. It works backwards from the risk score and identifies the specific actions that will reduce it the most: ranked, quantified, and ready to execute.</div>
+                </div>
+              </div>
+              <div class="journey-card-body">
+                <div class="journey-what-box">
+                  <div class="journey-what-label">What the AI is actually doing</div>
+                  <div class="journey-what-text">For each store and each risk factor, it runs the calculation in reverse: if this factor contributes 24 points to the risk score, then removing this factor saves 24 points. It then ranks every possible intervention by its point-reduction impact, filters for actions that are realistic to execute before the risk window opens, and presents them as a clear, ordered to-do list. Highest impact first. Always.</div>
+                </div>
+                <div class="journey-signals">
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#6E6E73" stroke-width="1.4"/><path d="M9 5.5V13M7.5 7l1.5-1.5" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/></svg></div><div class="js-label">Confirm manager cover</div><div class="js-value">Removes the largest single risk factor. −24 points immediately.</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#6E6E73" stroke-width="1.4"/><path d="M6.5 7a2.5 2.5 0 015 0c0 2-5 2.5-5 5.5h5" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="js-label">Buddy-pair new starters</div><div class="js-value">Mitigates tenure risk without changing rosters. −18 points.</div></div>
+                  <div class="journey-signal"><div class="js-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#6E6E73" stroke-width="1.4"/><path d="M6.5 6.5A2.5 2.5 0 019 5a2.5 2.5 0 010 5 2.5 2.5 0 010 5 2.5 2.5 0 01-2.5-1.5" stroke="#6E6E73" stroke-width="1.4" stroke-linecap="round"/></svg></div><div class="js-label">Run a team briefing</div><div class="js-value">10 minutes of awareness. −15 points per location.</div></div>
+                </div>
+                <div class="journey-result-strip" style="background:linear-gradient(135deg,rgba(30,58,95,0.06),rgba(30,58,95,0.02));border-color:rgba(30,58,95,0.15)">
+                  <div class="jrs-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#1E3A5F" stroke-width="1.4"/><path d="M5 13V9M9 13V6M13 13V10" stroke="#1E3A5F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  <div class="jrs-text" style="color:var(--navy)">Output: A ranked action list with predicted point savings per intervention. Total potential reduction: 30+ risk points before the audit window opens.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Final outcome -->
+        <div class="journey-final">
+          <div class="journey-final-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 28c-6 0-10-4-10-10V8h20v10c0 6-4 10-10 10z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M10 12H6c0 4 2 7 4 8M30 12h4c0 4-2 7-4 8" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M14 34h12M20 28v6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="journey-final-title">The outcome: fewer failures, lower risk, protected revenue</div>
+            <div class="journey-final-body">When you follow the AI's recommended interventions, stores that would have failed don't fail. Mystery shop pass rates go up. The cost of a single failed audit: legal exposure, reputational damage, client dissatisfaction: is avoided. The platform pays for itself many times over, every month.</div>
+            <div class="journey-final-stats">
+              <div><div class="jf-stat-num">−30pts</div><div class="jf-stat-label">Typical risk reduction<br>when actions are followed</div></div>
+              <div><div class="jf-stat-num">15%</div><div class="jf-stat-label">Pass rate uplift from<br>a single team briefing</div></div>
+              <div><div class="jf-stat-num">45%</div><div class="jf-stat-label">Failure rate reduction<br>from buddy-pairing new starters</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
